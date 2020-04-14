@@ -43,7 +43,7 @@ const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfec
   challengeTwoData.impactSevereCasesByRequestedTime = Math.trunc((15 * impactInfectionsByRequestedTime) / 100);
   challengeTwoData.severeImpactSevereCasesByRequestedTime = Math.trunc((severeImpactInfectionsByRequestedTime * 15) / 100);
 
-  challengeTwoData.impactHospitalBedsByRequestedTime = Math.trunc(Math.trunc(totalHospitalBeds * 0.30) - challengeTwoData.impactSevereCasesByRequestedTime);
+  challengeTwoData.impactHospitalBedsByRequestedTime = Math.trunc(Math.trunc(totalHospitalBeds * 0.35) - challengeTwoData.impactSevereCasesByRequestedTime);
   challengeTwoData.severeImpactHospitalBedsByRequestedTime = Math.trunc(Math.trunc(totalHospitalBeds * 0.35) - challengeTwoData.severeImpactSevereCasesByRequestedTime);
 
   return challengeTwoData;

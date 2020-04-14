@@ -43,8 +43,8 @@ const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfec
   challengeTwoData.impactSevereCasesByRequestedTime = parseInt(0.15 * impactInfectionsByRequestedTime, 10);
   challengeTwoData.severeImpactSevereCasesByRequestedTime = parseInt(0.15 * severeImpactInfectionsByRequestedTime, 10);
 
-  challengeTwoData.impactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.impactHospitalBedsByRequestedTime;
-  challengeTwoData.severeImpactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.severeImpactHospitalBedsByRequestedTime;
+  challengeTwoData.impactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.impactSevereCasesByRequestedTime;
+  challengeTwoData.severeImpactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.severeImpactSevereCasesByRequestedTime;
 
   return challengeTwoData;
 };

@@ -1,8 +1,29 @@
 /* eslint-disable max-len */
-const formater = require('./utils/data-formater');
 const challengeOneFunction = require('./chalenge_1');
 const challengeTwoFunction = require('./chalenge_2');
 const challengeThreeFunction = require('./chalenge_3');
+
+const Dataformater = (data) => {
+  const formatType = data.periodType;
+  const inputData = data;
+
+  switch (formatType) {
+    case 'days':
+      data.timeToElapse = inputData.timeToElapse;
+      break;
+
+    case 'weeks':
+      data.timeToElapse = inputData.timeToElapse * 7;
+      break;
+    case 'months':
+      data.timeToElapse = inputData.timeToElapse * 30;
+      break;
+    default:
+      break;
+  }
+
+  return data;
+};
 
 const covid19ImpactEstimator = (data) => {
   const finalData = {
@@ -11,7 +32,7 @@ const covid19ImpactEstimator = (data) => {
     severeImpact: {}
   };
 
-  const inputData = formater(data);
+  const inputData = Dataformater(data);
 
   const chOne = challengeOneFunction(inputData.reportedCases, inputData.timeToElapse);
 

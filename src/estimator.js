@@ -1,8 +1,4 @@
 /* eslint-disable max-len */
-const challengeOneFunction = require('./chalenge_1');
-const challengeTwoFunction = require('./chalenge_2');
-const challengeThreeFunction = require('./chalenge_3');
-
 const Dataformater = (data) => {
   const formatType = data.periodType;
   const inputData = data;
@@ -23,6 +19,48 @@ const Dataformater = (data) => {
   }
 
   return data;
+};
+
+const challengeOneFunction = (reportedCases, timeToElapse) => {
+  const challengeOneData = {};
+  let powerCasesIncrease = 0;
+
+  challengeOneData.impactCurrentlyInfected = reportedCases * 10;
+
+  challengeOneData.severeImpactCurrentlyInfected = reportedCases * 50;
+
+  powerCasesIncrease = parseInt(timeToElapse / 3, 10);
+
+  challengeOneData.impactInfectionsByRequestedTime = challengeOneData.impactCurrentlyInfected * 2 ** powerCasesIncrease;
+  challengeOneData.severeImpactInfectionsByRequestedTime = challengeOneData.severeImpactCurrentlyInfected * 2 ** powerCasesIncrease;
+
+  return challengeOneData;
+};
+
+const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime, totalHospitalBeds) => {
+  const challengeTwoData = {};
+
+  challengeTwoData.impactSevereCasesByRequestedTime = parseInt(0.15 * impactInfectionsByRequestedTime, 10);
+  challengeTwoData.severeImpactSevereCasesByRequestedTime = parseInt(0.15 * severeImpactInfectionsByRequestedTime, 10);
+
+  challengeTwoData.impactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.impactHospitalBedsByRequestedTime;
+  challengeTwoData.severeImpactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.severeImpactHospitalBedsByRequestedTime;
+
+  return challengeTwoData;
+};
+
+const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime, regionAvgDailyIncomeInUSD, regionAvgDailyIncomePopulation) => {
+  const challengeThreeData = {};
+
+  challengeThreeData.impactCasesForVentilatorsByRequestedTime = parseInt(0.05 * impactInfectionsByRequestedTime, 10);
+  challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = parseInt(0.05 * severeImpactInfectionsByRequestedTime, 10);
+  challengeThreeData.impactCasesForICUByRequestedTime = parseInt(0.02 * impactInfectionsByRequestedTime, 10);
+  challengeThreeData.severeImpactCasesForICUByRequestedTime = parseInt(0.02 * severeImpactInfectionsByRequestedTime, 10);
+
+  challengeThreeData.impactDollarsInFlight = impactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation;
+  challengeThreeData.severeImpactDollarsInFlight = severeImpactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation;
+
+  return challengeThreeData;
 };
 
 const covid19ImpactEstimator = (data) => {

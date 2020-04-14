@@ -1,4 +1,4 @@
-const formater = (data) => {
+const Dataformater = (data) => {
   const formatType = data.periodType;
   const inputData = data;
 
@@ -20,4 +20,4 @@ const formater = (data) => {
   return data;
 };
 
-export default formater;
+export default Dataformater;

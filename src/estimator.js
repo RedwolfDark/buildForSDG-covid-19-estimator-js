@@ -40,11 +40,11 @@ const challengeOneFunction = (reportedCases, timeToElapse) => {
 const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime, totalHospitalBeds) => {
   const challengeTwoData = {};
 
-  challengeTwoData.impactSevereCasesByRequestedTime = Math.trunc(0.15 * impactInfectionsByRequestedTime);
-  challengeTwoData.severeImpactSevereCasesByRequestedTime = Math.trunc(0.15 * severeImpactInfectionsByRequestedTime);
+  challengeTwoData.impactSevereCasesByRequestedTime = Math.trunc((15 * impactInfectionsByRequestedTime) / 100);
+  challengeTwoData.severeImpactSevereCasesByRequestedTime = Math.trunc((severeImpactInfectionsByRequestedTime * 15) / 100);
 
-  challengeTwoData.impactHospitalBedsByRequestedTime = Math.trunc((totalHospitalBeds * (0.95 - 0.65) + 0.05 * totalHospitalBeds)) - challengeTwoData.impactSevereCasesByRequestedTime;
-  challengeTwoData.severeImpactHospitalBedsByRequestedTime = Math.trunc((totalHospitalBeds * (0.9 - 0.65) + 0.05 * totalHospitalBeds)) - challengeTwoData.severeImpactSevereCasesByRequestedTime;
+  challengeTwoData.impactHospitalBedsByRequestedTime = Math.trunc(Math.trunc(totalHospitalBeds * 0.35) - challengeTwoData.impactSevereCasesByRequestedTime);
+  challengeTwoData.severeImpactHospitalBedsByRequestedTime = Math.trunc(Math.trunc(totalHospitalBeds * 0.35) - challengeTwoData.severeImpactSevereCasesByRequestedTime);
 
   return challengeTwoData;
 };

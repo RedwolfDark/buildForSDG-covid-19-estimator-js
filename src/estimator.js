@@ -25,11 +25,11 @@ const challengeOneFunction = (reportedCases, timeToElapse) => {
   const challengeOneData = {};
   let powerCasesIncrease = 0;
 
-  challengeOneData.impactCurrentlyInfected = reportedCases * 10;
+  challengeOneData.impactCurrentlyInfected = Math.trunc(reportedCases * 10);
 
-  challengeOneData.severeImpactCurrentlyInfected = reportedCases * 50;
+  challengeOneData.severeImpactCurrentlyInfected = Math.trunc(reportedCases * 50);
 
-  powerCasesIncrease = parseInt(timeToElapse / 3, 10);
+  powerCasesIncrease = Math.trunc(timeToElapse / 3);
 
   challengeOneData.impactInfectionsByRequestedTime = challengeOneData.impactCurrentlyInfected * 2 ** powerCasesIncrease;
   challengeOneData.severeImpactInfectionsByRequestedTime = challengeOneData.severeImpactCurrentlyInfected * 2 ** powerCasesIncrease;
@@ -40,11 +40,11 @@ const challengeOneFunction = (reportedCases, timeToElapse) => {
 const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime, totalHospitalBeds) => {
   const challengeTwoData = {};
 
-  challengeTwoData.impactSevereCasesByRequestedTime = parseInt(0.15 * impactInfectionsByRequestedTime, 10);
-  challengeTwoData.severeImpactSevereCasesByRequestedTime = parseInt(0.15 * severeImpactInfectionsByRequestedTime, 10);
+  challengeTwoData.impactSevereCasesByRequestedTime = Math.trunc(0.15 * impactInfectionsByRequestedTime);
+  challengeTwoData.severeImpactSevereCasesByRequestedTime = Math.trunc(0.15 * severeImpactInfectionsByRequestedTime);
 
-  challengeTwoData.impactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.impactSevereCasesByRequestedTime;
-  challengeTwoData.severeImpactHospitalBedsByRequestedTime = parseInt(totalHospitalBeds * 0.35, 10) - challengeTwoData.severeImpactSevereCasesByRequestedTime;
+  challengeTwoData.impactHospitalBedsByRequestedTime = Math.trunc(totalHospitalBeds * 0.35) - challengeTwoData.impactSevereCasesByRequestedTime;
+  challengeTwoData.severeImpactHospitalBedsByRequestedTime = Math.trunc(totalHospitalBeds * 0.35) - challengeTwoData.severeImpactSevereCasesByRequestedTime;
 
   return challengeTwoData;
 };
@@ -52,10 +52,10 @@ const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfec
 const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime, regionAvgDailyIncomeInUSD, regionAvgDailyIncomePopulation) => {
   const challengeThreeData = {};
 
-  challengeThreeData.impactCasesForVentilatorsByRequestedTime = parseInt(0.05 * impactInfectionsByRequestedTime, 10);
-  challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = parseInt(0.05 * severeImpactInfectionsByRequestedTime, 10);
-  challengeThreeData.impactCasesForICUByRequestedTime = parseInt(0.02 * impactInfectionsByRequestedTime, 10);
-  challengeThreeData.severeImpactCasesForICUByRequestedTime = parseInt(0.02 * severeImpactInfectionsByRequestedTime, 10);
+  challengeThreeData.impactCasesForVentilatorsByRequestedTime = Math.trunc(0.05 * impactInfectionsByRequestedTime);
+  challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = Math.trunc(0.05 * severeImpactInfectionsByRequestedTime);
+  challengeThreeData.impactCasesForICUByRequestedTime = Math.trunc(0.02 * impactInfectionsByRequestedTime);
+  challengeThreeData.severeImpactCasesForICUByRequestedTime = Math.trunc(0.02 * severeImpactInfectionsByRequestedTime);
 
   challengeThreeData.impactDollarsInFlight = impactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation;
   challengeThreeData.severeImpactDollarsInFlight = severeImpactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation;

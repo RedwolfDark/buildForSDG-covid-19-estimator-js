@@ -49,16 +49,17 @@ const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfec
   return challengeTwoData;
 };
 
-const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime, regionAvgDailyIncomeInUSD, regionAvgDailyIncomePopulation) => {
+const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime,
+  regionAvgDailyIncomeInUSD, regionAvgDailyIncomePopulation, timelapse) => {
   const challengeThreeData = {};
 
-  challengeThreeData.impactCasesForVentilatorsByRequestedTime = Math.trunc(0.05 * impactInfectionsByRequestedTime);
-  challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = Math.trunc(0.05 * severeImpactInfectionsByRequestedTime);
-  challengeThreeData.impactCasesForICUByRequestedTime = Math.trunc(0.02 * impactInfectionsByRequestedTime);
-  challengeThreeData.severeImpactCasesForICUByRequestedTime = Math.trunc(0.02 * severeImpactInfectionsByRequestedTime);
+  challengeThreeData.impactCasesForICUByRequestedTime = Math.trunc(0.05 * impactInfectionsByRequestedTime);
+  challengeThreeData.severeImpactCasesForICUByRequestedTime = Math.trunc(0.05 * severeImpactInfectionsByRequestedTime);
+  challengeThreeData.impactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactInfectionsByRequestedTime);
+  challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeImpactInfectionsByRequestedTime);
 
-  challengeThreeData.impactDollarsInFlight = impactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation;
-  challengeThreeData.severeImpactDollarsInFlight = severeImpactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation;
+  challengeThreeData.impactDollarsInFlight = Math.trunc((impactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) * timelapse);
+  challengeThreeData.severeImpactDollarsInFlight = Math.trunc((severeImpactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) * timelapse);
 
   return challengeThreeData;
 };
@@ -87,8 +88,10 @@ const covid19ImpactEstimator = (data) => {
   finalData.severeImpact.hospitalBedsByRequestedTime = chTwo.severeImpactHospitalBedsByRequestedTime;
 
   const chThree = challengeThreeFunction(finalData.severeImpact.infectionsByRequestedTime, finalData.impact.infectionsByRequestedTime,
-    inputData.region.avgDailyIncomeInUSD, inputData.region.avgDailyIncomeInUSD);
+    inputData.region.avgDailyIncomeInUSD, inputData.region.avgDailyIncomeInUSD, inputData.timeToElapse, data.population);
 
+  finalData.impact.casesForICUByRequestedTime = chThree.impactCasesForICUByRequestedTime;
+  finalData.severeImpact.casesForICUByRequestedTime = chThree.severeImpactCasesForICUByRequestedTime;
   finalData.impact.casesForVentilatorsByRequestedTime = chThree.impactCasesForVentilatorsByRequestedTime;
   finalData.severeImpact.casesForVentilatorsByRequestedTime = chThree.severeImpactCasesForVentilatorsByRequestedTime;
   finalData.impact.dollarsInFlight = chThree.impactDollarsInFlight;
@@ -97,6 +100,22 @@ const covid19ImpactEstimator = (data) => {
   finalData.data = data;
 
   return finalData;
+
+  // console.log(finalData);
 };
 
 export default covid19ImpactEstimator;
+
+/* covid19ImpactEstimator({
+  region: {
+    name: 'Africa',
+    avgAge: 19.7,
+    avgDailyIncomeInUSD: 4,
+    avgDailyIncomePopulation: 0.73
+  },
+  periodType: 'days',
+  timeToElapse: 38,
+  reportedCases: 2747,
+  population: 92931687,
+  totalHospitalBeds: 678874
+}); */

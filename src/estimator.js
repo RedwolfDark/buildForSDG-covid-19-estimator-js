@@ -58,8 +58,8 @@ const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInf
   challengeThreeData.impactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactInfectionsByRequestedTime);
   challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeImpactInfectionsByRequestedTime);
 
-  challengeThreeData.impactDollarsInFlight = Math.trunc((impactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) / timelapse);
-  challengeThreeData.severeImpactDollarsInFlight = Math.trunc((severeImpactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) / timelapse);
+  challengeThreeData.impactDollarsInFlight = Math.trunc(impactInfectionsByRequestedTime / timelapse) * Math.trunc(regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation);
+  challengeThreeData.severeImpactDollarsInFlight = Math.trunc(severeImpactInfectionsByRequestedTime / timelapse) * Math.trunc(regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation);
 
   return challengeThreeData;
 };
@@ -88,7 +88,7 @@ const covid19ImpactEstimator = (data) => {
   finalData.severeImpact.hospitalBedsByRequestedTime = chTwo.severeImpactHospitalBedsByRequestedTime;
 
   const chThree = challengeThreeFunction(finalData.severeImpact.infectionsByRequestedTime, finalData.impact.infectionsByRequestedTime,
-    inputData.region.avgDailyIncomeInUSD, inputData.region.avgDailyIncomeInUSD, inputData.timeToElapse, data.population);
+    inputData.region.avgDailyIncomeInUSD, inputData.region.avgDailyIncomeInUSD, inputData.timeToElapse);
 
   finalData.impact.casesForICUByRequestedTime = chThree.impactCasesForICUByRequestedTime;
   finalData.severeImpact.casesForICUByRequestedTime = chThree.severeImpactCasesForICUByRequestedTime;

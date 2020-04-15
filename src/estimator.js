@@ -88,7 +88,7 @@ const covid19ImpactEstimator = (data) => {
   finalData.severeImpact.hospitalBedsByRequestedTime = chTwo.severeImpactHospitalBedsByRequestedTime;
 
   const chThree = challengeThreeFunction(finalData.severeImpact.infectionsByRequestedTime, finalData.impact.infectionsByRequestedTime,
-    inputData.region.avgDailyIncomeInUSD, inputData.region.avgDailyIncomeInUSD, inputData.timeToElapse);
+    inputData.region.avgDailyIncomeInUSD, inputData.region.avgDailyIncomeInUSD, inputData.timeToElapse, inputData.population);
 
   finalData.impact.casesForICUByRequestedTime = chThree.impactCasesForICUByRequestedTime;
   finalData.severeImpact.casesForICUByRequestedTime = chThree.severeImpactCasesForICUByRequestedTime;

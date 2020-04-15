@@ -58,8 +58,8 @@ const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInf
   challengeThreeData.impactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactInfectionsByRequestedTime);
   challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeImpactInfectionsByRequestedTime);
 
-  challengeThreeData.impactDollarsInFlight = Math.trunc((impactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) * timelapse);
-  challengeThreeData.severeImpactDollarsInFlight = Math.trunc((severeImpactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) * timelapse);
+  challengeThreeData.impactDollarsInFlight = Math.trunc((impactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) / timelapse);
+  challengeThreeData.severeImpactDollarsInFlight = Math.trunc((severeImpactInfectionsByRequestedTime * regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation) / timelapse);
 
   return challengeThreeData;
 };

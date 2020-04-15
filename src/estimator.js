@@ -50,7 +50,7 @@ const challengeTwoFunction = (severeImpactInfectionsByRequestedTime, impactInfec
 };
 
 const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInfectionsByRequestedTime,
-  regionAvgDailyIncomeInUSD, regionAvgDailyIncomePopulation, timelapse) => {
+  regionAvgDailyIncomeInUSD, regionAvgDailyIncomePopulation, timelapse, population) => {
   const challengeThreeData = {};
 
   challengeThreeData.impactCasesForICUByRequestedTime = Math.trunc(0.05 * impactInfectionsByRequestedTime);
@@ -58,8 +58,8 @@ const challengeThreeFunction = (severeImpactInfectionsByRequestedTime, impactInf
   challengeThreeData.impactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * impactInfectionsByRequestedTime);
   challengeThreeData.severeImpactCasesForVentilatorsByRequestedTime = Math.trunc(0.02 * severeImpactInfectionsByRequestedTime);
 
-  challengeThreeData.impactDollarsInFlight = Math.trunc(impactInfectionsByRequestedTime / timelapse) * Math.trunc(regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation);
-  challengeThreeData.severeImpactDollarsInFlight = Math.trunc(severeImpactInfectionsByRequestedTime / timelapse) * Math.trunc(regionAvgDailyIncomeInUSD * regionAvgDailyIncomePopulation);
+  challengeThreeData.impactDollarsInFlight = Math.trunc((population * regionAvgDailyIncomePopulation - (impactInfectionsByRequestedTime / timelapse)) * regionAvgDailyIncomeInUSD);
+  challengeThreeData.severeImpactDollarsInFlight = Math.trunc((population * regionAvgDailyIncomePopulation - (severeImpactInfectionsByRequestedTime / timelapse)) * regionAvgDailyIncomeInUSD);
 
   return challengeThreeData;
 };
